@@ -1,13 +1,13 @@
 import {View, StyleSheet, Text, TextInput, Pressable, Image} from 'react-native'
+import Header from '../components/Header'
 
 function ChooseAnOrphanage() {
+
+	
+
   return (
     <View>
-        <View style={styles.headerContainer}>
-            <Pressable>
-                <Image source={require("../assets/icons/backButton.png")} ></Image>
-            </Pressable>
-        </View>
+        <Header/>
     </View>
   )
 }
@@ -15,8 +15,6 @@ function ChooseAnOrphanage() {
 export default ChooseAnOrphanage
 
 const styles = StyleSheet.create({
-    headerContainer: {
-        flexDirection: 'row'
-    }
+    
 })
 
