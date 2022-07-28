@@ -1,5 +1,5 @@
 import { Pressable, Image, View, Text, StyleSheet } from "react-native";
-import BackButton from "./backButton";
+import BackButton from "./BackButton";
 import ProfileIcon from "./ProfileIcon";
 
 function Header() {
@@ -13,7 +13,7 @@ function Header() {
 
   return (
     <View style={styles.headerContainer}>
-      <BackButton onPress={profileIconPressHandler}/>
+      <BackButton onPress={backButtonPressHandler}/>
       <ProfileIcon onPress={profileIconPressHandler} />
     </View>
   );
