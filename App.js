@@ -1,3 +1,17 @@
+
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+
+
+export default function App() {
+  return (
+    <View>
+     
+    </View>
+  );
+}
+
+
 import { StyleSheet, SafeAreaView } from "react-native";
 import { View } from "react-native";
 
@@ -10,3 +24,4 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9FBFC",
   },
 });
+
