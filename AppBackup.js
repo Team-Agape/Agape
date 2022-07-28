@@ -1,12 +1,8 @@
 import { StyleSheet, SafeAreaView } from "react-native";
-import MyAccount from "./screens/MyAccount";
+import { View } from "react-native";
 
 export default function App() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <MyAccount />
-    </SafeAreaView>
-  );
+  return <View />;
 }
 
 const styles = StyleSheet.create({
