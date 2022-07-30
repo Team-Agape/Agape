@@ -1,13 +1,8 @@
 import { StyleSheet, SafeAreaView } from "react-native";
-//import MyAccount from "./screens/MyAccount";
-import ChangePassword from "./screens/ChangePassword";
+import { View } from "react-native";
 
 export default function App() {
-  return (
-    <SafeAreaView style={styles.root}>
-      <ChangePassword />
-    </SafeAreaView>
-  );
+  return <View />;
 }
 
 const styles = StyleSheet.create({
