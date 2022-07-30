@@ -12,7 +12,7 @@ function CustomButton({ onPress, text }) {
 export default CustomButton;
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#B96C91",
+    backgroundColor: "#E29578",
     padding: 12,
     marginVertical: 35,
     alignItems: "center",
