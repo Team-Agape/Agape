@@ -1,9 +1,11 @@
 import { StyleSheet } from "react-native";
 import ChooseAnOrphanage from "./screens/ChooseAnOrphanage";
 import DonateItems from "./screens/DonateItems";
+import WelcomePage from "./screens/WelcomePage";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Login from "./screens/Login";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +20,20 @@ export default function App() {
             contentStyle: { backgroundColor: "#fff9fc" },
           }}
         >
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerShown: false
+            }}
+          />
+          <Stack.Screen
+            name="WelcomePage"
+            component={WelcomePage}
+            options={{
+              title: "Hi Maria!",
+            }}
+          />
           <Stack.Screen
             name="ChooseAnOrphanage"
             component={ChooseAnOrphanage}
@@ -46,4 +62,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-

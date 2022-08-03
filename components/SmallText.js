@@ -12,6 +12,7 @@ export default SmallText
 
 const styles = StyleSheet.create({
   text: {
-    color: "#b96c91"
+    color: "#b96c91",
+    fontSize: 15,
   }
 })
