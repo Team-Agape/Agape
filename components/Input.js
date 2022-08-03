@@ -17,11 +17,13 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     width: "90%",
+    height: 45,
     marginLeft: 20,
     borderWidth: 1,
-    borderRadius: 3,
+    borderRadius: 4,
     borderColor: "#B96C91",
     paddingHorizontal: 10,
     paddingVertical: 8,
+    justifyContent: 'center'
   },
 });

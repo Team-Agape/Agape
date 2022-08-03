@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -13,30 +14,31 @@ import PageTitle from "../components/PageTitle";
 import SmallText from "../components/SmallText";
 import OrphanageTile from "../components/OrphanageTile";
 
-const orphanages = [
-  {
-    id: 1,
-    name: "Precious Children's Village",
-    location: "Areeparambu",
-    district: "Kottayam",
-    imageUrl: "https://dishaaspeaks.files.wordpress.com/2013/08/dsc01676.jpg",
-  },
-  {
-    id: 2,
-    name: "Precious Children's Village",
-    location: "Areeparambu",
-    district: "Kottayam",
-    imageUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg/800px-Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg",
-  },
-];
+import { postData, getData } from "../utils/http";
+import {agapeOrphanages} from "../utils/data"
 
-function ChooseAnOrphanage({navigation}) {
+const myOrphanage = agapeOrphanages
+
+function ChooseAnOrphanage({ navigation }) {
+  const [fetchedOrphanages, setFetchedOrphanages] = useState([]);
+
+  useEffect(() => {
+    async function getOrphanageData() {
+      const orphanage = await getData();
+      console.log("in useEffect");
+      console.log(orphanage);
+      setFetchedOrphanages(orphanage);
+    }
+    getOrphanageData();
+  }, []);
+
   function renderOrphanageTile(orphanageData) {
-    
-    function pressHandler(){
-      console.log("pressed")
-      navigation.navigate("DonateItems")
+    function pressHandler() {
+      console.log("pressed");
+      postData(myOrphanage.item);
+      navigation.navigate("DonateItems", {
+        data: orphanageData.item,
+      });
     }
 
     return (
@@ -46,6 +48,7 @@ function ChooseAnOrphanage({navigation}) {
         location={orphanageData.item.location}
         district={orphanageData.item.district}
         onPress={pressHandler}
+        data={orphanageData.item}
       />
     );
   }
@@ -60,7 +63,7 @@ function ChooseAnOrphanage({navigation}) {
       </View>
       <View style={styles.listContainer}>
         <FlatList
-          data={orphanages}
+          data={myOrphanage}
           keyExtractor={(item) => item.id}
           renderItem={renderOrphanageTile}
           // numColumns={1}
@@ -74,8 +77,8 @@ function ChooseAnOrphanage({navigation}) {
 export default ChooseAnOrphanage;
 
 const styles = StyleSheet.create({
-  parentView:{
-    flex: 1
+  parentView: {
+    flex: 1,
   },
   firstText: {
     marginTop: 20,
@@ -85,6 +88,6 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   listContainer: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
