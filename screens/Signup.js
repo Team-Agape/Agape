@@ -13,9 +13,9 @@ import Colors from "../constants/colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { auth } from "../firebase/firebase-config";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
-function Login({ navigation }) {
+function Signup({ navigation }) {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -30,21 +30,20 @@ function Login({ navigation }) {
     console.log(enteredText);
   }
 
-  function loginUser() {
-    signInWithEmailAndPassword(auth, userEmail, userPassword)
-      .then((result) => {
-        console.log(result);
-        setIsSignedIn(true);
-        navigation.navigate("WelcomePage");
-      })
-      .catch((result) => {
-        if (result.code === "auth/email-already-in-use") {
-          Alert.alert("Email is already in use!");
-          navigation.navigate("Signup");
-        }
-        console.log(result);
-      });
-  }
+  function registerUser() {
+    createUserWithEmailAndPassword(auth, userEmail, userPassword)
+        .then((result) => {
+            console.log(result)
+            navigation.navigate('Login')
+        })
+        .catch((result) => {
+            if (result.code === 'auth/email-already-in-use') {
+                Alert.alert('Email is already in use!');
+                navigation.navigate('Signup')
+            }
+            //console.log(result)
+        })
+}
 
   return (
     <KeyboardAwareScrollView
@@ -60,7 +59,7 @@ function Login({ navigation }) {
 
       <View style={styles.bottomContainer}>
         <View style={styles.agapeTitle}>
-          <Text style={styles.loginWelcomeText}>Welcome to Agape</Text>
+          <Text style={styles.loginWelcomeText}>Create an Account</Text>
         </View>
         <View style={styles.emailInput}>
           <Input
@@ -81,13 +80,13 @@ function Login({ navigation }) {
           ></Input>
         </View>
         <View style={styles.signupText}>
-          <Text>Don't have an account? </Text>
-          <Pressable onPress={() => navigation.navigate("Signup")}>
-            <Text style={styles.signupLink}>Signup.</Text>
+          <Text>Already have an account? </Text>
+          <Pressable onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.signupLink}>Login.</Text>
           </Pressable>
         </View>
         <View>
-          <CustomButton text="Login" onPress={loginUser}></CustomButton>
+          <CustomButton text="Signup" onPress={registerUser}></CustomButton>
         </View>
       </View>
     </KeyboardAwareScrollView>
@@ -135,4 +134,4 @@ const styles = StyleSheet.create({
     color: "blue",
   },
 });
-export default Login;
+export default Signup;

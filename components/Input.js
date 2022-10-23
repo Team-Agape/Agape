@@ -1,13 +1,17 @@
 import { TextInput, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Input = ({ value, setValue, placeholder }) => {
+const Input = ({ value, setValue, placeholder, autoCapitalize, secureTextEntry }) => {
   return (
     <View style={styles.container}>
       <TextInput
         value={value}
         onChangeText={setValue}
         placeholder={placeholder}
+        autoCapitalize={autoCapitalize}
+        secureTextEntry={secureTextEntry}
+        autoComplete={ Platform.OS === 'web' ? 'none' : 'off' }
+        autoCorrect={false}
       />
     </View>
   );
