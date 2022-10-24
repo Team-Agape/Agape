@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect, useEffect, useState } from "react";
 import {
   Text,
   TouchableOpacity,
@@ -8,31 +8,44 @@ import {
 } from "react-native";
 import SmallText from "../components/SmallText";
 import WelcomePageButton from "../components/WelcomePageButton";
+import PageTitle from "../components/PageTitle";
 
-const WelcomePage = ({navigation}) => {
+import { db } from "../firebase/firebase-config";
+import { collection, getDocs } from "firebase/firestore";
+
+const WelcomePage = ({ navigation, route }) => {
   const iconPaths = {
     gift: require("../assets/icons/giftIcon.png"),
     sponsorChild: require("../assets/icons/sponsorChildIcon.png"),
     fund: require("../assets/icons/fundIcon.png"),
   };
 
+  const {title} = route.params
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title,
+    });
+  }, [navigation]);
+
   function donateButtonHandler() {
     console.log("pressed donate button");
-    navigation.navigate("ChooseAnOrphanage")
+    navigation.navigate("ChooseAnOrphanage");
   }
 
   function sponsorButtonHandler() {
     console.log("pressed sponsor button");
-    navigation.navigate("ChooseAnOrphanage")
+    navigation.navigate("ChooseAnOrphanage");
   }
 
   function fundButtonHandler() {
     console.log("pressed fund button");
-    navigation.navigate("ChooseAnOrphanage")
+    navigation.navigate("ChooseAnOrphanage");
   }
 
   return (
     <View>
+      {/* <PageTitle>Hi, {userName}</PageTitle> */}
       <View style={styles.introText}>
         <SmallText>How do you want to help?</SmallText>
       </View>

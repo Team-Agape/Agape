@@ -17,6 +17,9 @@ import OrphanageTile from "../components/OrphanageTile";
 import { postData, getData } from "../utils/http";
 import {agapeOrphanages} from "../utils/data"
 
+import { collection, getDocs} from 'firebase/firestore/lite'
+import { db } from '../firebase/firebase-config'
+
 const myOrphanage = agapeOrphanages
 
 function ChooseAnOrphanage({ navigation }) {

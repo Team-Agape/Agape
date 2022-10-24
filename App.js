@@ -39,7 +39,7 @@ export default function App() {
             name="WelcomePage"
             component={WelcomePage}
             options={{
-              title: "Hi Maria!",
+              headerBackVisible: false,
             }}
           />
           <Stack.Screen
