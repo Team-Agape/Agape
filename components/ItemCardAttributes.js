@@ -7,10 +7,12 @@ function ItemCardAttributes() {
         <Text style={styles.text}>Name</Text>
       </View>
       <View style={styles.textContainer2}>
-        <Text style={styles.text}>No. Needed</Text>
+        <Text style={styles.text}>No.</Text>
+        <Text style={styles.text}>needed</Text>
       </View>
       <View style={styles.textContainer3}>
-        <Text style={styles.text}>No. to donate</Text>
+        <Text style={styles.text}>No. </Text>
+        <Text style={styles.text}>to donate</Text>
       </View>
     </View>
   )
@@ -28,8 +30,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   textContainer1: {
-    marginHorizontal: 10,
-    marginLeft: 50,
+    marginRight: 100,
+    marginLeft: 20,
   },
   textContainer2: {
     marginHorizontal: 10,
