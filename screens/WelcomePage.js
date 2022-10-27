@@ -30,17 +30,23 @@ const WelcomePage = ({ navigation, route }) => {
 
   function donateButtonHandler() {
     console.log("pressed donate button");
-    navigation.navigate("ChooseAnOrphanage");
+    navigation.navigate("ChooseAnOrphanage", {
+      screenId: 1,
+    });
   }
 
   function sponsorButtonHandler() {
     console.log("pressed sponsor button");
-    navigation.navigate("ChooseAnOrphanage");
+    navigation.navigate("ChooseAnOrphanage", {
+      screenId: 2,
+    });
   }
 
   function fundButtonHandler() {
     console.log("pressed fund button");
-    navigation.navigate("ChooseAnOrphanage");
+    navigation.navigate("ChooseAnOrphanage", {
+      screenId: 3,
+    });
   }
 
   return (

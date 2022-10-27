@@ -24,8 +24,10 @@ import { db } from "../firebase/firebase-config";
 const myOrphanage = agapeOrphanages;
 const myOrphanageDemo = agapeOrphanagesDemo;
 
-function ChooseAnOrphanage({ navigation }) {
+function ChooseAnOrphanage({ navigation, route }) {
   const [fetchedOrphanages, setFetchedOrphanages] = useState([]);
+
+  const screenId = route.params.screenId;
 
   // console.log("orphanages before state: ", fetchedOrphanages);
 
@@ -46,9 +48,19 @@ function ChooseAnOrphanage({ navigation }) {
       console.log("pressed");
       // console.log(myOrphanageDemo);
       // postData(myOrphanageDemo);
-      navigation.navigate("DonateItems", {
-        data: orphanageData.item,
-      });
+      if (screenId === 1) {
+        navigation.navigate("DonateItems", {
+          data: orphanageData.item,
+        });
+      } else if (screenId === 2) {
+        navigation.navigate("SponsorChildren", {
+          data: orphanageData.item,
+        });
+      } else {
+        navigation.navigate("FundOrphanage", {
+          data: orphanageData.item,
+        });
+      }
     }
 
     return (

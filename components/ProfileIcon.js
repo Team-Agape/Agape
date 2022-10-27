@@ -4,7 +4,7 @@ function ProfileIcon(props) {
   return (
     <View style={styles.profileIcon}>
       <Pressable onPress={props.onPress} android_ripple={{color: '#ececec'}}>
-        <Image source={require("../assets/icons/profileIcon.png")}></Image>
+        <Image style={styles.profileIconImage} source={require("../assets/icons/profileIcon.png")}></Image>
       </Pressable>
     </View>
   );
@@ -14,7 +14,11 @@ export default ProfileIcon;
 
 const styles = StyleSheet.create({
   profileIcon: {
-    marginTop: 35,
-    marginLeft: 300,
+    marginTop: 0,
+    marginLeft: 0,
   },
+  profileIconImage: {
+    width: 40,
+    height: 40,
+  }
 });

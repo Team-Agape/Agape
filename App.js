@@ -1,14 +1,28 @@
+import "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
 import ChooseAnOrphanage from "./screens/ChooseAnOrphanage";
 import DonateItems from "./screens/DonateItems";
 import WelcomePage from "./screens/WelcomePage";
+import ProfileIcon from "./components/ProfileIcon";
+import SponsorChildren from "./screens/SponsorChildren";
+import FundOrphanage from "./screens/FundOrphanage";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function Account() {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen></Drawer.Screen>
+    </Drawer.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -40,6 +54,11 @@ export default function App() {
             component={WelcomePage}
             options={{
               headerBackVisible: false,
+              headerRight: () => (
+                <ProfileIcon
+                  onPress={() => console.log("profile icon clicked")}
+                />
+              ),
             }}
           />
           <Stack.Screen
@@ -54,6 +73,20 @@ export default function App() {
             component={DonateItems}
             options={{
               title: "Donate Items",
+            }}
+          />
+          <Stack.Screen
+            name="SponsorChildren"
+            component={SponsorChildren}
+            options={{
+              title: "Sponsor Children",
+            }}
+          />
+          <Stack.Screen
+            name="FundOrphanage"
+            component={FundOrphanage}
+            options={{
+              title: "Fund An Orphanage",
             }}
           />
         </Stack.Navigator>
