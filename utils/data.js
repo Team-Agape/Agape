@@ -33,7 +33,7 @@ export const agapeOrphanages = [
   },
 ];
 
-export const agapeOrphanages5 = {
+export const agapeOrphanagesDemo = {
   id: 1,
   name: "Precious Children's Village",
   location: "Areeparambu",

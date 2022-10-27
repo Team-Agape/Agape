@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   StyleSheet,
@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Platform,
   Pressable,
+  Alert,
 } from "react-native";
 import CustomButton from "../components/CustomButton";
 import Input from "../components/Input";
@@ -14,11 +15,14 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 import { auth } from "../firebase/firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { db } from "../firebase/firebase-config";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 function Login({ navigation }) {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [userName, setUserName] = useState("");
 
   function getUserEmail(enteredText) {
     setUserEmail(enteredText);
@@ -32,10 +36,19 @@ function Login({ navigation }) {
 
   function loginUser() {
     signInWithEmailAndPassword(auth, userEmail, userPassword)
-      .then((result) => {
+      .then(async (result) => {
         console.log(result);
         setIsSignedIn(true);
-        navigation.navigate("WelcomePage");
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("email", "==", userEmail));
+        const querySnapshot = await getDocs(q);
+        let retrievedName = "none"
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id, "=>", doc.data())
+          retrievedName = doc.data().name
+          console.log("Retrieved name: ", retrievedName)
+        })
+        navigation.navigate("WelcomePage", { title: `Hi, ${retrievedName}`});
       })
       .catch((result) => {
         if (result.code === "auth/email-already-in-use") {
@@ -45,6 +58,17 @@ function Login({ navigation }) {
         console.log(result);
       });
   }
+
+  // useEffect(() => {
+  //   async function getUser() {
+  //     const usersCollection = collection(db, "Users");
+  //     const usersSnapshot = await getDocs(usersCollection);
+  //     const userList = usersSnapshot.docs.map((doc) => doc.data());
+  //     console.log(userList[0].name)
+  //     setUserName(userList[0].name);
+  //   }
+  //   getUser();
+  // }, []);
 
   return (
     <KeyboardAwareScrollView

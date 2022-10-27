@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -15,30 +15,52 @@ import SmallText from "../components/SmallText";
 import OrphanageTile from "../components/OrphanageTile";
 
 import { postData, getData } from "../utils/http";
-import {agapeOrphanages} from "../utils/data"
+import { agapeOrphanages } from "../utils/data";
+import { agapeOrphanagesDemo } from "../utils/data";
 
-const myOrphanage = agapeOrphanages
+import { collection, getDocs } from "firebase/firestore/lite";
+import { db } from "../firebase/firebase-config";
 
-function ChooseAnOrphanage({ navigation }) {
+const myOrphanage = agapeOrphanages;
+const myOrphanageDemo = agapeOrphanagesDemo;
+
+function ChooseAnOrphanage({ navigation, route }) {
   const [fetchedOrphanages, setFetchedOrphanages] = useState([]);
 
-  useEffect(() => {
+  const screenId = route.params.screenId;
+
+  // console.log("orphanages before state: ", fetchedOrphanages);
+
+  useLayoutEffect(() => {
     async function getOrphanageData() {
       const orphanage = await getData();
       console.log("in useEffect");
-      console.log(orphanage);
+      // console.log(orphanage);
       setFetchedOrphanages(orphanage);
+      // console.log(fetchedOrphanages)
     }
     getOrphanageData();
+    // console.log("Orphanages retrieved: ", fetchedOrphanages);
   }, []);
 
   function renderOrphanageTile(orphanageData) {
     function pressHandler() {
       console.log("pressed");
-      postData(myOrphanage.item);
-      navigation.navigate("DonateItems", {
-        data: orphanageData.item,
-      });
+      // console.log(myOrphanageDemo);
+      // postData(myOrphanageDemo);
+      if (screenId === 1) {
+        navigation.navigate("DonateItems", {
+          data: orphanageData.item,
+        });
+      } else if (screenId === 2) {
+        navigation.navigate("SponsorChildren", {
+          data: orphanageData.item,
+        });
+      } else {
+        navigation.navigate("FundOrphanage", {
+          data: orphanageData.item,
+        });
+      }
     }
 
     return (
@@ -49,6 +71,7 @@ function ChooseAnOrphanage({ navigation }) {
         district={orphanageData.item.district}
         onPress={pressHandler}
         data={orphanageData.item}
+        id={orphanageData.item.id}
       />
     );
   }
@@ -63,7 +86,7 @@ function ChooseAnOrphanage({ navigation }) {
       </View>
       <View style={styles.listContainer}>
         <FlatList
-          data={myOrphanage}
+          data={fetchedOrphanages}
           keyExtractor={(item) => item.id}
           renderItem={renderOrphanageTile}
           // numColumns={1}
