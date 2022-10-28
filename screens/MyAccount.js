@@ -1,17 +1,42 @@
 import { StyleSheet, Text, useWindowDimensions, View, Alert } from "react-native";
 import React, { useState } from "react";
+
 import Input from "../components/Input";
 import CustomButton from "../components/CustomButton";
+import { postUserData } from "../utils/http";
 
 function MyAccount() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phn, setPhn] = useState("");
+  const [phone, setPhone] = useState("");
   const { height } = useWindowDimensions();
   const onUpdated = () => {
     console.log("updated profile");
     Alert.alert("Updated profile information!")
+    const userData = {
+      name: name,
+      email: email,
+      mobile: phone
+    }
+    console.log("User data: ", userData);
+    postUserData(userData)
   };
+
+  function getUserName(enteredText){
+    console.log(enteredText)
+    setName(enteredText)
+  }
+
+  function getUserEmail(enteredText){
+    console.log(enteredText)
+    setEmail(enteredText)
+  }
+
+  function getUserPhone(enteredText){
+    console.log(enteredText)
+    setPhone(enteredText)
+  }
+
   return (
     <View style={styles.container}>
       {/* <Text style={styles.heading}>My Account</Text>
@@ -20,17 +45,16 @@ function MyAccount() {
       </Text> */}
       <View>
         <Text style={styles.subheads}>Name</Text>
-        <Input placeholder="Enter the name" value={name} setValue={setName} />
+        <Input placeholder="Enter the name" setValue={getUserName} />
 
         <Text style={styles.subheads}>Email</Text>
         <Input
           placeholder="Enter the Email"
-          value={email}
-          setValue={setEmail}
+          setValue={getUserEmail}
           autoCapitalize="none"
         />
         <Text style={styles.subheads}>Mobile</Text>
-        <Input placeholder="Enter the Mobile" value={phn} setValue={setPhn} />
+        <Input placeholder="Enter the Mobile" setValue={getUserPhone} />
       </View>
       <View style={styles.button}>
         <CustomButton text="Update Profile" onPress={onUpdated} />

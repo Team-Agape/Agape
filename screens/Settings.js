@@ -9,19 +9,20 @@ import { connectFirestoreEmulator } from "firebase/firestore";
 const profileIcon = require("../assets/icons/userIcon.png");
 const keyIcon = require("../assets/icons/keyIcon.png");
 
-function Settings({navigation}) {
+function Settings({ navigation }) {
   function myAccountPressHandler() {
     console.log("Pressed my account");
-    navigation.navigate("MyAccount")
+    navigation.navigate("MyAccount");
   }
 
   function changePasswordPressHandler() {
     console.log("Pressed change password");
-    navigation.navigate("ChangePassword")
+    navigation.navigate("ChangePassword");
   }
 
-  function logoutButtonHandler(){
-    console.log("pressed logout button")
+  function logoutButtonHandler() {
+    console.log("pressed logout button");
+    navigation.navigate("Login");
   }
   return (
     <View>
@@ -37,10 +38,9 @@ function Settings({navigation}) {
           <View style={styles.iconContainer}>
             <Image source={profileIcon} />
           </View>
-          <View style={styles.buttonTextContainer}>  
-          <PageTitle>My Account</PageTitle>
+          <View style={styles.buttonTextContainer}>
+            <PageTitle>My Account</PageTitle>
           </View>
-          
         </Pressable>
       </View>
       <HorizontalRule />
@@ -62,7 +62,10 @@ function Settings({navigation}) {
         </Pressable>
       </View>
       <View style={styles.logoutContainer}>
-        <CustomButton text="Logout" onPress={logoutButtonHandler}></CustomButton>
+        <CustomButton
+          text="Logout"
+          onPress={logoutButtonHandler}
+        ></CustomButton>
       </View>
     </View>
   );
@@ -95,11 +98,11 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   buttonTextContainer: {
-    position: 'absolute',
+    position: "absolute",
     right: 198,
   },
   buttonText2Container: {
-    position: 'absolute',
+    position: "absolute",
     right: 135,
   },
 });

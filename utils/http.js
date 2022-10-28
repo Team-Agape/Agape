@@ -1,4 +1,5 @@
 import axios from "axios";
+import { updateEmail } from "firebase/auth";
 import {
   doc,
   setDoc,
@@ -13,6 +14,7 @@ import {
   increment,
 } from "firebase/firestore";
 import { db } from "../firebase/firebase-config";
+import { auth } from "../firebase/firebase-config";
 
 export async function postData(orphanageData) {
   // axios.post(BACKEND_URL + "/orphanages.json", orphanageData);
@@ -25,6 +27,24 @@ export async function postData(orphanageData) {
   });
 }
 
+export async function postUserData(userData) {
+  const docRef = doc(db, "users", auth.currentUser.uid);
+
+  await updateDoc(docRef, {
+    name: userData.name,
+    email: userData.email,
+    mobile: userData.mobile,
+  });
+
+  updateEmail(auth.currentUser, userData.email)
+    .then(() => {
+      console.log("Email updated to: ", userData.email);
+    })
+    .catch((error) => {
+      console.log("An error occured: ", error);
+    });
+}
+
 export async function updateDonationAmount(amount, docId, id) {
   const docRef = doc(db, "orphanages", docId, "itemsNeeded", id);
 
@@ -33,8 +53,8 @@ export async function updateDonationAmount(amount, docId, id) {
       quantity: increment(-1),
     });
     const parentDocRef = await addDoc(collection(db, "donations"), {
-      // name: 
-    })
+      // name:
+    });
   } else {
     await updateDoc(docRef, {
       quantity: increment(1),

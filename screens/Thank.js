@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, StyleSheet, View } from "react-native";
 //import { AlignCenter } from 'react-native-feather';
 //import { Colors } from 'react-native/Libraries/NewAppScreen';
-const Thank = () => {
+const Thank = ({ navigation, route }) => {
+  const userTitle = route.params.userTitle;
+
+  useEffect(() => {
+    function thankyouDisplay() {
+      setTimeout(() => {
+        console.log("enabled timeout");
+        navigation.navigate("WelcomePage", { title: `Hi, ${userTitle}` });
+      }, 2000);
+    }
+    thankyouDisplay();
+  });
   return (
     <View style={styles.container}>
-      <Text style={styles.titlesTitle}> THANK YOU!</Text>
-      <Text style={styles.titlesSubtitle}> WE WILL SEE YOU SOON !</Text>
+      <Text style={styles.titlesTitle}> Thank You!</Text>
+      <Text style={styles.titlesSubtitle}> We will see you soon!</Text>
     </View>
   );
 };
@@ -15,7 +26,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    //justifyContent:'center',
+    justifyContent:'center',
+    marginBottom: 400,
     // backgroundColor:'#DCAEC4',
   },
   //textstyle:{

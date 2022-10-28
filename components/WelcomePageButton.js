@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 180,
     overflow: Platform.OS === "android" ? "hidden" : "visible",
+    backgroundColor: "white"
   },
   text: {
     color: "#b96c91",

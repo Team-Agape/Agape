@@ -23,6 +23,7 @@ function Login({ navigation }) {
   const [userPassword, setUserPassword] = useState("");
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [userName, setUserName] = useState("");
+  const [userTitle, setUserTitle] = useState("")
 
   function getUserEmail(enteredText) {
     setUserEmail(enteredText);
@@ -46,14 +47,27 @@ function Login({ navigation }) {
         querySnapshot.forEach((doc) => {
           console.log(doc.id, "=>", doc.data())
           retrievedName = doc.data().name
+          setUserTitle(retrievedName)
           console.log("Retrieved name: ", retrievedName)
         })
-        navigation.navigate("WelcomePage", { title: `Hi, ${retrievedName}`});
+        navigation.navigate("WelcomePage", { title: `Hi, ${retrievedName}`, userTitle: userTitle});
       })
       .catch((result) => {
-        if (result.code === "auth/email-already-in-use") {
-          Alert.alert("Email is already in use!");
-          navigation.navigate("Signup");
+        if (result.code === "auth/wrong-password") {
+          Alert.alert("Wrong Password!");
+          navigation.navigate("Login");
+        }
+        else if (result.code === "auth/user-not-found") {
+          Alert.alert("User not Found!");
+          navigation.navigate("Login");
+        }
+        else if (result.code === "auth/internal-error") {
+          Alert.alert("Please type in all credentials!");
+          navigation.navigate("Login");
+        }
+        else if (result.code === "auth/invalid-email") {
+          Alert.alert("Please type in your email correctly!");
+          navigation.navigate("Login");
         }
         console.log(result);
       });
