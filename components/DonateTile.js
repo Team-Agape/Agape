@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     borderColor: Colors.agapeLightPink,
+    backgroundColor: Colors.white,
   },
   textContainer1: {
     marginLeft: 14,

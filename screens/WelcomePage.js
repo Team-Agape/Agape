@@ -21,8 +21,12 @@ const WelcomePage = ({ navigation, route }) => {
   };
 
   const { title } = route.params;
+  const userTitle = route.params.userTitle
+
+  // const [myTitle, setMyTitle] = useState("");
 
   useLayoutEffect(() => {
+    // setMyTitle(title);
     navigation.setOptions({
       title,
     });
@@ -32,6 +36,7 @@ const WelcomePage = ({ navigation, route }) => {
     console.log("pressed donate button");
     navigation.navigate("ChooseAnOrphanage", {
       screenId: 1,
+      userTitle: userTitle,
     });
   }
 
@@ -39,6 +44,7 @@ const WelcomePage = ({ navigation, route }) => {
     console.log("pressed sponsor button");
     navigation.navigate("ChooseAnOrphanage", {
       screenId: 2,
+      userTitle: userTitle,
     });
   }
 
@@ -46,6 +52,7 @@ const WelcomePage = ({ navigation, route }) => {
     console.log("pressed fund button");
     navigation.navigate("ChooseAnOrphanage", {
       screenId: 3,
+      userTitle: userTitle,
     });
   }
 

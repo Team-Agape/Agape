@@ -9,6 +9,7 @@ import CustomButton2 from "../components/CustomButton2";
 
 function DonateItems({ route, navigation }) {
   const orphanage = route.params.data;
+  const userTitle = route.params.userTitle
 
   const [fetchedItems, setFetchedItems] = useState([])
 
@@ -16,6 +17,9 @@ function DonateItems({ route, navigation }) {
 
   function donateButtonHandler(){
     console.log("pressed donate button")
+    navigation.navigate("Thank", {
+      userTitle: userTitle
+    })
   }
 
   useLayoutEffect(() => {

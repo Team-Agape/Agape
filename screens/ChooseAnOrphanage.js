@@ -26,6 +26,7 @@ const myOrphanageDemo = agapeOrphanagesDemo;
 
 function ChooseAnOrphanage({ navigation, route }) {
   const [fetchedOrphanages, setFetchedOrphanages] = useState([]);
+  const userTitle = route.params.userTitle
 
   const screenId = route.params.screenId;
 
@@ -51,14 +52,17 @@ function ChooseAnOrphanage({ navigation, route }) {
       if (screenId === 1) {
         navigation.navigate("DonateItems", {
           data: orphanageData.item,
+          userTitle: userTitle,
         });
       } else if (screenId === 2) {
         navigation.navigate("SponsorChildren", {
           data: orphanageData.item,
+          userTitle: userTitle,
         });
       } else {
         navigation.navigate("FundOrphanage", {
           data: orphanageData.item,
+          userTitle: userTitle,
         });
       }
     }
@@ -81,9 +85,9 @@ function ChooseAnOrphanage({ navigation, route }) {
       <View style={styles.firstText}>
         <SmallText>These are the orphanages closest to you.</SmallText>
       </View>
-      <View style={styles.searchBarView}>
+      {/* <View style={styles.searchBarView}>
         <SearchBar />
-      </View>
+      </View> */}
       <View style={styles.listContainer}>
         <FlatList
           data={fetchedOrphanages}

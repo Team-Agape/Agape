@@ -8,12 +8,17 @@ import CustomButton2 from "../components/CustomButton2";
  
 
 
-function SponsorChildren() {
+function SponsorChildren({navigation}) {
   const [ChildNum, setChildNum] = useState("");
 
 function childNum(enteredText){
   setChildNum(enteredText);
   console.log(childNum)
+}
+
+function sponsorButtonHandler(){
+  console.log("pressed sponsor button")
+  navigation.navigate("Thank")
 }
 
 function yearNum(enteredText){
@@ -26,7 +31,7 @@ function yearNum(enteredText){
         Sponsor a child for only 15,000 a year.
       </SmallText>
       </View>
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView extraHeight={40}>
       <View style={styles.Numbers}>
       {/* Views for the children and year(s) input */}
       <View style={styles.input}> 
@@ -48,7 +53,7 @@ function yearNum(enteredText){
       </View>
       </KeyboardAwareScrollView>
       <View style={styles.sponsorChildContainer}>
-        <CustomButton2>Sponsor children</CustomButton2>
+        <CustomButton2 onPress={sponsorButtonHandler}>Sponsor children</CustomButton2>
       </View>
     </View>
   );

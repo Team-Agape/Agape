@@ -11,6 +11,7 @@ import ChangePassword from "./screens/ChangePassword";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import Settings from "./screens/Settings";
+import Thank from "./screens/Thank";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -104,6 +105,13 @@ export default function App({ navigation }) {
             component={DonateItems}
             options={{
               title: "Donate Items",
+            }}
+          />
+          <Stack.Screen
+            name="Thank"
+            component={Thank}
+            options={{
+              headerShown: false,
             }}
           />
           <Stack.Screen
