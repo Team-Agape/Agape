@@ -14,6 +14,9 @@ function DonateItems({ route, navigation }) {
 
   console.log("items before state: ", fetchedItems)
 
+  function donateButtonHandler(){
+    console.log("pressed donate button")
+  }
 
   useLayoutEffect(() => {
     async function getItems(id){
@@ -54,7 +57,7 @@ function DonateItems({ route, navigation }) {
         />
       </View>
       <View style={styles.donateButtonContainer}>
-        <CustomButton2>Donate Items</CustomButton2>
+        <CustomButton2 onPress={donateButtonHandler}>Donate Items</CustomButton2>
       </View>
     </View>
   );

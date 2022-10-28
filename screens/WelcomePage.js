@@ -20,7 +20,7 @@ const WelcomePage = ({ navigation, route }) => {
     fund: require("../assets/icons/fundIcon.png"),
   };
 
-  const {title} = route.params
+  const { title } = route.params;
 
   useLayoutEffect(() => {
     navigation.setOptions({
