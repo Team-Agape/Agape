@@ -6,25 +6,31 @@ import WelcomePage from "./screens/WelcomePage";
 import ProfileIcon from "./components/ProfileIcon";
 import SponsorChildren from "./screens/SponsorChildren";
 import FundOrphanage from "./screens/FundOrphanage";
+import MyAccount from "./screens/MyAccount";
+import ChangePassword from "./screens/ChangePassword";
+import Login from "./screens/Login";
+import Signup from "./screens/Signup";
+import Settings from "./screens/Settings";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Login from "./screens/Login";
-import Signup from "./screens/Signup";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function Account() {
-  return (
-    <Drawer.Navigator>
-      <Drawer.Screen></Drawer.Screen>
-    </Drawer.Navigator>
-  );
-}
+// function Account() {
+//   return (
+//     // <NavigationContainer>
+//       <Drawer.Navigator>
+//         <Drawer.Screen name="MyAccount" component={MyAccount} />
+//         <Drawer.Screen name="ChangePassword" component={ChangePassword} />
+//       </Drawer.Navigator>
+//     // {/* </NavigationContainer> */}
+//   );
+// }
 
-export default function App() {
+export default function App({ navigation }) {
   return (
     <>
       <NavigationContainer>
@@ -33,6 +39,7 @@ export default function App() {
             headerStyle: { backgroundColor: "#fff9fc" },
             headerTintColor: "#b96c91",
             contentStyle: { backgroundColor: "#fff9fc" },
+            headerRight: () => <ProfileIcon navigation={navigation} />,
           }}
         >
           <Stack.Screen
@@ -54,11 +61,35 @@ export default function App() {
             component={WelcomePage}
             options={{
               headerBackVisible: false,
-              headerRight: () => (
-                <ProfileIcon
-                  onPress={() => console.log("profile icon clicked")}
-                />
-              ),
+              
+            }}
+          />
+          {/* <Stack.Screen
+            name="Account"
+            component={Account}
+            options={{
+              headerShown: false,
+            }}
+          /> */}
+          <Stack.Screen
+            name="Settings"
+            component={Settings}
+            options={{
+              title: "Settings",
+            }}
+          />
+          <Stack.Screen
+            name="MyAccount"
+            component={MyAccount}
+            options={{
+              title: "My Account",
+            }}
+          />
+          <Stack.Screen
+            name="ChangePassword"
+            component={ChangePassword}
+            options={{
+              title: "Change My Password",
             }}
           />
           <Stack.Screen

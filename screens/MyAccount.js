@@ -1,4 +1,4 @@
-import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { StyleSheet, Text, useWindowDimensions, View, Alert } from "react-native";
 import React, { useState } from "react";
 import Input from "../components/Input";
 import CustomButton from "../components/CustomButton";
@@ -9,14 +9,15 @@ function MyAccount() {
   const [phn, setPhn] = useState("");
   const { height } = useWindowDimensions();
   const onUpdated = () => {
-    console.warn("updated");
+    console.log("updated profile");
+    Alert.alert("Updated profile information!")
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>My Account</Text>
+      {/* <Text style={styles.heading}>My Account</Text>
       <Text style={styles.line} numberOfLines={1}>
         ___________________________________________
-      </Text>
+      </Text> */}
       <View>
         <Text style={styles.subheads}>Name</Text>
         <Input placeholder="Enter the name" value={name} setValue={setName} />
@@ -26,6 +27,7 @@ function MyAccount() {
           placeholder="Enter the Email"
           value={email}
           setValue={setEmail}
+          autoCapitalize="none"
         />
         <Text style={styles.subheads}>Mobile</Text>
         <Input placeholder="Enter the Mobile" value={phn} setValue={setPhn} />
@@ -56,10 +58,10 @@ const styles = StyleSheet.create({
   subheads: {
     marginLeft: 20,
     color: "#B96C91",
-    marginBottom: 5,
-    marginTop: 10,
+    marginBottom: 7,
+    marginTop: 50,
   },
   button: {
-    marginTop: 220,
+    marginTop: 270,
   },
 });

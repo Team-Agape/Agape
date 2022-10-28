@@ -3,7 +3,14 @@ import React, { useState } from "react";
 
 function CustomButton({ onPress, text }) {
   return (
-    <Pressable onPress={onPress} style={styles.container}>
+    <Pressable
+      android_ripple={{ color: "#ccc" }}
+      style={({ pressed }) => [
+        styles.container,
+        pressed ? styles.buttonPressed : null,
+      ]}
+      onPress={onPress}
+    >
       <Text style={styles.text}>{text}</Text>
     </Pressable>
   );
@@ -22,5 +29,12 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
+  },
+  button: {
+    flex: 1,
+  },
+  buttonPressed: {
+    opacity: 0.8,
+    // flex: 1,
   },
 });

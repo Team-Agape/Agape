@@ -1,10 +1,19 @@
 import { View, StyleSheet, Pressable, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-function ProfileIcon(props) {
+function ProfileIcon({ onPress }) {
+  const navigation = useNavigation();
+  function openDrawer() {
+    console.log("profile icon clicked");
+    navigation.navigate("Settings")
+  }
   return (
     <View style={styles.profileIcon}>
-      <Pressable onPress={props.onPress} android_ripple={{color: '#ececec'}}>
-        <Image style={styles.profileIconImage} source={require("../assets/icons/profileIcon.png")}></Image>
+      <Pressable onPress={openDrawer} android_ripple={{ color: "#ececec" }}>
+        <Image
+          style={styles.profileIconImage}
+          source={require("../assets/icons/profileIcon.png")}
+        ></Image>
       </Pressable>
     </View>
   );
@@ -20,5 +29,5 @@ const styles = StyleSheet.create({
   profileIconImage: {
     width: 40,
     height: 40,
-  }
+  },
 });
