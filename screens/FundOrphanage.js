@@ -1,20 +1,52 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Text, Alert } from "react-native";
+
 import AmountInput from "../components/AmountInput";
 import CustomButton2 from "../components/CustomButton2";
+import PageTitle from "../components/PageTitle";
+import HorizontalRule from "../components/HorizontalRule";
 
+function FundOrphanage({ navigation, route }) {
+  const orphanage = route.params.data;
+  const userTitle = route.params.userTitle;
 
-function FundOrphanage() {
+  const [donationAmount, setDonationAmount] = useState(0);
+
+  function donationInputHandler(enteredInput) {
+    console.log(enteredInput);
+    setDonationAmount(enteredInput);
+  }
+
+  function donateButtonHandler() {
+    console.log("pressed donate button");
+    if (donationAmount <= 0) {
+      Alert.alert("Please enter a valid amount!");
+    } else {
+      navigation.navigate("Thank", {
+        userTitle: userTitle,
+      });
+    }
+  }
+
   return (
     <View>
       {/* Orphanage name and location */}
-      <View></View>
+      <View style={styles.title}>
+        <PageTitle>{orphanage.name}</PageTitle>
+      </View>
+
+      <View>
+        <Text style={styles.locationTitle}>
+          {orphanage.location}, {orphanage.district}
+        </Text>
+      </View>
+      <HorizontalRule />
       {/* Donate money message */}
       <View>
         <Text style={styles.title1}>Donate Money:</Text>
         <View>
           <Text style={styles.message1}>
-            Donating money to us would goa long way in supporting the children
+            Donating money to us would go a long way in supporting the children
             in our institution.
           </Text>
           <Text style={styles.message1}>
@@ -23,18 +55,24 @@ function FundOrphanage() {
           </Text>
         </View>
       </View>
+      <HorizontalRule />
       {/* Enter amount and agreement*/}
       <View>
         <Text style={styles.title2}>Enter amount in INR:</Text>
         <AmountInput
-        placeholder="Enter the amount"
-        maxLength={6}
+          placeholder="0"
+          maxLength={6}
+          setValue={donationInputHandler}
         ></AmountInput>
         <Text style={styles.message2}>
-          By clicking the button below, you are agreeing to donate to . INR will be debited from your bank account.
+          By clicking the button below, you are agreeing to donate Rs.{" "}
+          {donationAmount} to {orphanage.name}. {donationAmount} INR will be
+          debited from your bank account.
         </Text>
       </View>
-      <CustomButton2>Donate</CustomButton2>
+      <View style={styles.donateButton}>
+        <CustomButton2 onPress={donateButtonHandler}>Donate</CustomButton2>
+      </View>
     </View>
   );
 }
@@ -47,7 +85,7 @@ const styles = StyleSheet.create({
     color: "#b96c91",
     paddingBottom: 20,
     paddingLeft: 21,
-    marginTop:30
+    marginTop: 30,
   },
   message1: {
     fontSize: 16,
@@ -57,17 +95,29 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   title2: {
-    fontSize:17,
+    fontSize: 17,
     color: "#b96c91",
     paddingLeft: 21,
-    paddingTop:30,
+    paddingTop: 30,
   },
   message2: {
     fontSize: 18,
     color: "#b96c91",
     width: "82%",
     alignSelf: "center",
-    paddingBottom: 100,
-    marginTop:40
+    marginTop: 40,
+  },
+  locationTitle: {
+    margin: 10,
+    marginLeft: 20,
+    fontSize: 16,
+    color: "#b96c91",
+    marginBottom: 30,
+  },
+  title: {
+    marginTop: 30,
+  },
+  donateButton: {
+    marginTop: 40,
   },
 });

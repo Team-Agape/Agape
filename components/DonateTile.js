@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, Dimensions } from "react-native";
+import { View, StyleSheet, Text, Dimensions, Alert } from "react-native";
 
 import SmallText from "./SmallText";
 import Colors from "../constants/colors";
@@ -14,18 +14,30 @@ const minusIcon = require("../assets/icons/minusIcon.png");
 function DonateTile({ name, quantity, id, itemId }) {
   const [donateQty, setDonateQty] = useState(0);
 
-  console.log("initial donate qty = ", donateQty)
+  console.log("initial donate qty = ", donateQty);
 
   async function incrementDonationQuantity() {
-    setDonateQty(donateQty + 1);
-    console.log("donate quantity: ", donateQty);
-    await updateDonationAmount("+", id, itemId);
+    if (donateQty > quantity - 1) {
+      Alert.alert("Maximum Quantity reached!");
+    } else if (donateQty < 0) {
+      Alert.alert("Can't donate less than 0!");
+    } else {
+      setDonateQty(donateQty + 1);
+      console.log("donate quantity: ", donateQty);
+      await updateDonationAmount("+", id, itemId);
+    }
   }
 
   async function decrementDonationQuantity() {
-    setDonateQty(donateQty - 1);
-    console.log("donate quantity: ", donateQty);
-    await updateDonationAmount("-", id, itemId);
+    if (donateQty > quantity) {
+      Alert.alert("Maximum Quantity reached!");
+    } else if (donateQty < 1) {
+      Alert.alert("Can't donate less than 0!");
+    } else {
+      setDonateQty(donateQty - 1);
+      console.log("donate quantity: ", donateQty);
+      await updateDonationAmount("-", id, itemId);
+    }
   }
 
   return (

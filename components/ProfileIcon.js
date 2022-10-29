@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   profileIcon: {
     marginTop: 0,
     marginLeft: 0,
+    marginRight: 10,
   },
   profileIconImage: {
     width: 40,

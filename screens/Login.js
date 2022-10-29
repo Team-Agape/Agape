@@ -12,6 +12,7 @@ import CustomButton from "../components/CustomButton";
 import Input from "../components/Input";
 import Colors from "../constants/colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Home from "../App";
 
 import { auth } from "../firebase/firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -23,7 +24,8 @@ function Login({ navigation }) {
   const [userPassword, setUserPassword] = useState("");
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [userName, setUserName] = useState("");
-  const [userTitle, setUserTitle] = useState("")
+  const [userTitle, setUserTitle] = useState("");
+  const [isOrphanage, setIsOrphanage] = useState("");
 
   function getUserEmail(enteredText) {
     setUserEmail(enteredText);
@@ -43,46 +45,45 @@ function Login({ navigation }) {
         const usersRef = collection(db, "users");
         const q = query(usersRef, where("email", "==", userEmail));
         const querySnapshot = await getDocs(q);
-        let retrievedName = "none"
+        let retrievedName = "none";
+        let isAnOrphanage = false;
         querySnapshot.forEach((doc) => {
-          console.log(doc.id, "=>", doc.data())
-          retrievedName = doc.data().name
-          setUserTitle(retrievedName)
-          console.log("Retrieved name: ", retrievedName)
-        })
-        navigation.navigate("WelcomePage", { title: `Hi, ${retrievedName}`, userTitle: userTitle});
+          console.log(doc.id, "=>", doc.data());
+          retrievedName = doc.data().name;
+          isAnOrphanage = doc.data().isOrphanage;
+          setUserTitle(retrievedName);
+          setIsOrphanage(isAnOrphanage);
+          console.log("Retrieved name: ", retrievedName);
+        });
+        if (isAnOrphanage === true) {
+          navigation.navigate("Home", {
+            title: `Hi, ${retrievedName}`,
+            userTitle: userTitle,
+          });
+        } else {
+          navigation.navigate("WelcomePage", {
+            title: `Hi, ${retrievedName}`,
+            userTitle: userTitle,
+          });
+        }
       })
       .catch((result) => {
         if (result.code === "auth/wrong-password") {
           Alert.alert("Wrong Password!");
           navigation.navigate("Login");
-        }
-        else if (result.code === "auth/user-not-found") {
+        } else if (result.code === "auth/user-not-found") {
           Alert.alert("User not Found!");
           navigation.navigate("Login");
-        }
-        else if (result.code === "auth/internal-error") {
+        } else if (result.code === "auth/internal-error") {
           Alert.alert("Please type in all credentials!");
           navigation.navigate("Login");
-        }
-        else if (result.code === "auth/invalid-email") {
+        } else if (result.code === "auth/invalid-email") {
           Alert.alert("Please type in your email correctly!");
           navigation.navigate("Login");
         }
         console.log(result);
       });
   }
-
-  // useEffect(() => {
-  //   async function getUser() {
-  //     const usersCollection = collection(db, "Users");
-  //     const usersSnapshot = await getDocs(usersCollection);
-  //     const userList = usersSnapshot.docs.map((doc) => doc.data());
-  //     console.log(userList[0].name)
-  //     setUserName(userList[0].name);
-  //   }
-  //   getUser();
-  // }, []);
 
   return (
     <KeyboardAwareScrollView
