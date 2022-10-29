@@ -68,6 +68,10 @@ function Signup({ navigation }) {
           Alert.alert("Email is already in use!");
           navigation.navigate("Signup");
         }
+        else if (result.code === "auth/weak-password") {
+          Alert.alert("Password should be at least 6 characters!");
+          navigation.navigate("Signup");
+        }
         console.log(result)
       });
   }

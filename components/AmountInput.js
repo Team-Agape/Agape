@@ -1,7 +1,7 @@
 import { TextInput, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const AmountInput = ({ value, setValue, placeholder, autoCapitalize, secureTextEntry }) => {
+const AmountInput = ({ value, setValue, placeholder, autoCapitalize, secureTextEntry, maxLength }) => {
   return (
     <View style={styles.container}>
       <TextInput
@@ -12,6 +12,8 @@ const AmountInput = ({ value, setValue, placeholder, autoCapitalize, secureTextE
         secureTextEntry={secureTextEntry}
         autoComplete={ Platform.OS === 'web' ? 'none' : 'off' }
         autoCorrect={false}
+        keyboardType="numeric"
+        maxLength={maxLength}
       />
     </View>
   );

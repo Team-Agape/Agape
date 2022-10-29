@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
+
 import ChooseAnOrphanage from "./screens/ChooseAnOrphanage";
 import DonateItems from "./screens/DonateItems";
 import WelcomePage from "./screens/WelcomePage";
@@ -12,13 +13,19 @@ import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import Settings from "./screens/Settings";
 import Thank from "./screens/Thank";
+import ItemDonations from "./screens/ItemDonations";
+import Sponsorships from "./screens/Sponsorships";
+import Donations from "./screens/Donations";
+import Colors from "./constants/colors";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 // function Account() {
 //   return (
@@ -30,6 +37,27 @@ const Drawer = createDrawerNavigator();
 //     // {/* </NavigationContainer> */}
 //   );
 // }
+
+export function Home() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: "#fff9fc" },
+        headerTintColor: "#b96c91",
+        contentStyle: { backgroundColor: "#fff9fc" },
+        headerRight: () => <ProfileIcon />,
+        tabBarActiveTintColor: Colors.agapePink,
+        tabBarActiveBackgroundColor: Colors.agapeVeryLightPink,
+        tabBarInactiveBackgroundColor: Colors.agapeVeryLightPink,
+      }}
+    >
+      <Tab.Screen name="ItemDonations" component={ItemDonations} />
+      <Tab.Screen name="Sponsorships" component={Sponsorships} />
+      <Tab.Screen name="Donations" component={Donations} />
+      <Tab.Screen name="Settings" component={Settings} />
+    </Tab.Navigator>
+  );
+}
 
 export default function App({ navigation }) {
   return (
@@ -51,6 +79,11 @@ export default function App({ navigation }) {
             }}
           />
           <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="Signup"
             component={Signup}
             options={{
@@ -62,7 +95,6 @@ export default function App({ navigation }) {
             component={WelcomePage}
             options={{
               headerBackVisible: false,
-              
             }}
           />
           {/* <Stack.Screen

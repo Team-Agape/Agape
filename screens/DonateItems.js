@@ -9,30 +9,30 @@ import CustomButton2 from "../components/CustomButton2";
 
 function DonateItems({ route, navigation }) {
   const orphanage = route.params.data;
-  const userTitle = route.params.userTitle
+  const userTitle = route.params.userTitle;
 
-  const [fetchedItems, setFetchedItems] = useState([])
+  const [fetchedItems, setFetchedItems] = useState([]);
 
-  console.log("items before state: ", fetchedItems)
+  console.log("items before state: ", fetchedItems);
 
-  function donateButtonHandler(){
-    console.log("pressed donate button")
+  function donateButtonHandler() {
+    console.log("pressed donate button");
     navigation.navigate("Thank", {
-      userTitle: userTitle
-    })
+      userTitle: userTitle,
+    });
   }
 
   useLayoutEffect(() => {
-    async function getItems(id){
-      console.log("in donate useeffect")
+    async function getItems(id) {
+      console.log("in donate useeffect");
       // console.log("id = ", id)
       const items = await getNeededItems(id);
-      setFetchedItems(items)
+      setFetchedItems(items);
     }
-    getItems(orphanage.id)
+    getItems(orphanage.id);
     // console.log("fetched items: ", fetchedItems)
-    console.log("orphanage id: ", orphanage.id)
-  }, [])
+    console.log("orphanage id: ", orphanage.id);
+  }, []);
 
   function renderDonateItemTile(itemNeeded) {
     return (
@@ -61,7 +61,9 @@ function DonateItems({ route, navigation }) {
         />
       </View>
       <View style={styles.donateButtonContainer}>
-        <CustomButton2 onPress={donateButtonHandler}>Donate Items</CustomButton2>
+        <CustomButton2 onPress={donateButtonHandler}>
+          Donate Items
+        </CustomButton2>
       </View>
     </View>
   );
@@ -77,5 +79,5 @@ const styles = StyleSheet.create({
   },
   donateButtonContainer: {
     marginTop: 300,
-  }
+  },
 });

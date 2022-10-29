@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     margin: 25,
   },
   logoutContainer: {
-    marginTop: 490,
+    marginTop: 440,
   },
   button: {
     // flex: 1,
