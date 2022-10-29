@@ -7,6 +7,7 @@ import NumInput from "../components/NumInput";
 import CustomButton2 from "../components/CustomButton2";
 import Colors from "../constants/colors";
 import PageTitle from "../components/PageTitle";
+import { postSponsorship } from "../utils/http";
 
 function SponsorChildren({ navigation, route }) {
   const [childNum, setChildNum] = useState(0);
@@ -30,6 +31,7 @@ function SponsorChildren({ navigation, route }) {
       Alert.alert("Please enter No. of years.!")
     }
     else{
+      postSponsorship(orphanage.id, totalAmount, childNum, yearNum, userTitle)
       navigation.navigate("Thank", {
         userTitle: userTitle,
       });
@@ -57,7 +59,7 @@ function SponsorChildren({ navigation, route }) {
           <View style={styles.input}>
             <Text style={styles.mainText}>No. Of Children:</Text>
             <NumInput
-              placeholder="0"
+              placeholder="Enter no. of Children"
               setValue={childrenInputHandler}
               maxLength={2}
             ></NumInput>
@@ -65,7 +67,7 @@ function SponsorChildren({ navigation, route }) {
           <View style={styles.input}>
             <Text style={styles.mainText}>No. Of Years:</Text>
             <NumInput
-              placeholder="0"
+              placeholder="Enter no. of Years"
               setValue={yearInputHandler}
               maxLength={2}
             ></NumInput>
@@ -97,6 +99,8 @@ const styles = StyleSheet.create({
   },
   input: {
     paddingBottom: 38,
+    paddingHorizontal: 20,
+    marginHorizontal: 20,
   },
   mainText: {
     color: Colors.agapePink,

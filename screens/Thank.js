@@ -9,7 +9,7 @@ const Thank = ({ navigation, route }) => {
     function thankyouDisplay() {
       setTimeout(() => {
         console.log("enabled timeout");
-        navigation.navigate("WelcomePage", { title: `Hi, ${userTitle}` });
+        navigation.navigate("WelcomePage", { title: `Hi, ${userTitle}`, userTitle: userTitle });
       }, 2000);
     }
     thankyouDisplay();

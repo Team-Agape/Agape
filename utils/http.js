@@ -45,6 +45,40 @@ export async function postUserData(userData) {
     });
 }
 
+export async function postDonation(donationAmount, docId, userName) {
+  const docRef = await addDoc(
+    collection(db, "orphanages", docId, "donations"),
+    {
+      amount: donationAmount,
+      uId: auth.currentUser.uid,
+      name: userName,
+    }
+  );
+  console.log("Document written with ID: ", docRef.id);
+  const objRef = await doc(db, "orphanages", docId, "donations", docRef.id);
+
+  await updateDoc(objRef, {
+    id: docRef.id,
+  });
+}
+
+export async function postSponsorship(docId, amount, numChildren, numYears, userName){
+  const docRef = await addDoc(collection(db, "orphanages", docId, "sponsorships"), {
+    amount: amount,
+    name: userName,
+    numChildren: numChildren,
+    numYears: numYears,
+    uId: auth.currentUser.uid,
+  });
+  console.log("Document written with ID: ", docRef.id)
+  const objRef = await doc(db, "orphanages", docId, "sponsorships", docRef.id);
+
+  await updateDoc(objRef, {
+    id: docRef.id,
+  });
+
+}
+
 export async function updateDonationAmount(amount, docId, id) {
   const docRef = doc(db, "orphanages", docId, "itemsNeeded", id);
 
@@ -60,6 +94,67 @@ export async function updateDonationAmount(amount, docId, id) {
       quantity: increment(1),
     });
   }
+}
+
+export async function getOrphanageDetails(){
+  const orphanagesRef = collection(db, "orphanages");
+  const q = query(orphanagesRef, where("oAdminId", "==", auth.currentUser.uid));
+  const allOrphanages = [];
+
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    console.log(doc.id, " => ", doc.data());
+    allOrphanages.push(doc.data());
+  })
+  return allOrphanages
+}
+
+export async function getSponsorships(){
+  const orphanagesRef = collection(db, "orphanages");
+  const q = query(orphanagesRef, where("oAdminId", "==", auth.currentUser.uid));
+  let allOrphanages = {};
+
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    // console.log(doc.id, " => ", doc.data());
+    allOrphanages = doc.data();
+  })
+
+  console.log("orphanage: ", allOrphanages)
+
+  const query2Snapshot = await getDocs(collection(db, "orphanages", allOrphanages.id, "sponsorships"))
+  const allItems = [];
+
+  query2Snapshot.forEach((doc) => {
+    // console.log(doc.id, " => ", doc.data());
+    allItems.push(doc.data());
+  })
+  console.log("All Items: ", allItems)
+  return allItems;
+} 
+
+export async function getDonations(){
+  const orphanagesRef = collection(db, "orphanages");
+  const q = query(orphanagesRef, where("oAdminId", "==", auth.currentUser.uid));
+  let allOrphanages = {};
+
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    // console.log(doc.id, " => ", doc.data());
+    allOrphanages = doc.data();
+  })
+
+  console.log("orphanage: ", allOrphanages)
+
+  const query2Snapshot = await getDocs(collection(db, "orphanages", allOrphanages.id, "donations"))
+  const allItems = [];
+
+  query2Snapshot.forEach((doc) => {
+    // console.log(doc.id, " => ", doc.data());
+    allItems.push(doc.data());
+  })
+  console.log("All Items: ", allItems)
+  return allItems;
 }
 
 export async function getNeededItems(id) {

@@ -20,8 +20,10 @@ const WelcomePage = ({ navigation, route }) => {
     fund: require("../assets/icons/fundIcon.png"),
   };
 
-  const { title } = route.params;
-  const userTitle = route.params.userTitle
+  const { title, userTitle } = route.params;
+  // const userTitle = route.params.userTitle
+
+  console.log("usertitle: ", userTitle)
 
   // const [myTitle, setMyTitle] = useState("");
 
