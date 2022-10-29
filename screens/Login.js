@@ -63,7 +63,7 @@ function Login({ navigation }) {
         } else {
           navigation.navigate("WelcomePage", {
             title: `Hi, ${retrievedName}`,
-            userTitle: userTitle,
+            userTitle: retrievedName,
           });
         }
       })

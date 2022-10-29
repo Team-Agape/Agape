@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, Alert } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import AmountInput from "../components/AmountInput";
 import CustomButton2 from "../components/CustomButton2";
 import PageTitle from "../components/PageTitle";
 import HorizontalRule from "../components/HorizontalRule";
+import { postDonation } from "../utils/http";
 
 function FundOrphanage({ navigation, route }) {
   const orphanage = route.params.data;
   const userTitle = route.params.userTitle;
+
+  console.log("usertitle: ", userTitle)
 
   const [donationAmount, setDonationAmount] = useState(0);
 
@@ -22,6 +26,7 @@ function FundOrphanage({ navigation, route }) {
     if (donationAmount <= 0) {
       Alert.alert("Please enter a valid amount!");
     } else {
+      postDonation(donationAmount, orphanage.id, userTitle);
       navigation.navigate("Thank", {
         userTitle: userTitle,
       });
@@ -29,7 +34,7 @@ function FundOrphanage({ navigation, route }) {
   }
 
   return (
-    <View>
+    <KeyboardAwareScrollView extraHeight={40}>
       {/* Orphanage name and location */}
       <View style={styles.title}>
         <PageTitle>{orphanage.name}</PageTitle>
@@ -73,7 +78,7 @@ function FundOrphanage({ navigation, route }) {
       <View style={styles.donateButton}>
         <CustomButton2 onPress={donateButtonHandler}>Donate</CustomButton2>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
 

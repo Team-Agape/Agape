@@ -78,6 +78,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   donateButtonContainer: {
-    marginTop: 300,
+    marginTop: 100,
   },
 });

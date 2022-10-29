@@ -41,17 +41,35 @@ const Tab = createBottomTabNavigator();
 export function Home() {
   return (
     <Tab.Navigator
+    sceneContainerStyle= {{backgroundColor: Colors.agapeVeryLightPink}}
       screenOptions={{
         headerStyle: { backgroundColor: "#fff9fc" },
         headerTintColor: "#b96c91",
-        contentStyle: { backgroundColor: "#fff9fc" },
+        // contentStyle: { backgroundColor: "#fff9fc" },
         headerRight: () => <ProfileIcon />,
         tabBarActiveTintColor: Colors.agapePink,
         tabBarActiveBackgroundColor: Colors.agapeVeryLightPink,
         tabBarInactiveBackgroundColor: Colors.agapeVeryLightPink,
+        
+        tabBarContentContainerStyle: {
+          backgroundColor: Colors.agapeVeryLightPink,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: 'center',
+        },
+        tabBarIconStyle: { display: "none" },
+        tabBarStyle: {
+          backgroundColor: Colors.agapeVeryLightPink,
+          justifyContent: "center",
+          alignItems: "center",
+          height: 60,
+        },
+        style: {
+          backgroundColor: Colors.agapeVeryLightPink,
+        }
       }}
     >
-      <Tab.Screen name="ItemDonations" component={ItemDonations} />
+      {/* <Tab.Screen name="ItemDonations" component={ItemDonations} /> */}
       <Tab.Screen name="Sponsorships" component={Sponsorships} />
       <Tab.Screen name="Donations" component={Donations} />
       <Tab.Screen name="Settings" component={Settings} />

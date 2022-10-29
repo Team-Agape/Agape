@@ -26,8 +26,8 @@ const myOrphanageDemo = agapeOrphanagesDemo;
 
 function ChooseAnOrphanage({ navigation, route }) {
   const [fetchedOrphanages, setFetchedOrphanages] = useState([]);
-  const userTitle = route.params.userTitle
-
+  const userTitle = route.params.userTitle;
+  console.log("usertitle: ", userTitle);
   const screenId = route.params.screenId;
 
   // console.log("orphanages before state: ", fetchedOrphanages);
